@@ -1,0 +1,68 @@
+<section style="min-height: 100vh;">
+    <div class="container">
+        <h1 class="text-center">All Orders</h1>
+        <div class="tb">
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Pincode</th>
+                    <th scope="col">Mobile</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Products</th>
+                    <th scope="col">Track</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#if ordersExist}}
+                {{#each orders}}
+                    <tr>
+                        <td>{{this.userName}}</td>
+                        <td>{{this.date}}</td>
+                        <td>{{this.deliveryDetails.address}}</td>
+                        <td>{{this.deliveryDetails.pincode}}</td>
+                        <td>{{this.deliveryDetails.mobile}}</td>
+                        <td>{{this.totalAmount}}</td>
+                        <td>{{this.paymentMethod}}</td>
+                        <td>{{this.status}}</td>
+                        <td>
+                            <a href="/admin/view-order-products/{{this._id}}" class="btn btn-outline-primary">View Products</a>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-success" onclick="tracking('{{this._id}}')">
+                                <span id="track-btn">
+                                    Ship
+                                </span>
+                            </button>
+                           
+                        </td>
+                    </tr>
+                {{/each}}
+                {{else}}
+                    
+                        <td>
+                            <h4  class="text-center text-danger">No Orders Yet</h4>
+                            
+                        </td>
+                    
+                {{/if}}
+                
+                
+            </tbody>
+        </table>
+        </div>
+    </div>
+</section>
+<style>
+    .tb{
+        max-width: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        
+    }
+    
+</style>

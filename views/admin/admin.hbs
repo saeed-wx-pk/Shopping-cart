@@ -1,0 +1,47 @@
+<section style="min-height: 100vh;">
+    <div class="container">
+        <div class="row mt-3 ">
+            <a href="/admin/add-product" class="btn btn-outline-success my-2 my-sm-0 ml-auto">Add Product</a>
+            <a href="/admin/create-offers" class="btn btn-outline-success my-2 my-sm-0 ml-3">Create Offers</a>
+        </div>
+        
+        <div class="tb">
+        <table class="table mt-3 mb-5 ">
+            <thead>
+                <tr>
+                    
+                    <th scope="col">Title</th>
+                    <th scope="col">category</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                    <tr>
+                        
+                        <td>{{this.Name}}</td>
+                        <td>{{this.Category}}</td>
+                        <td>{{this.Price}}</td>
+                        <td>{{this.Description}}</td>
+                        <td><img style="width: 50px; height: 50px;" src="/product-images/{{this._id}}.jpeg" alt=""></td>
+                        <td style="display: flex;">
+                            <a class="btn btn-outline-primary my-2 my-sm-0" href="/admin/edit-product/{{this._id}}">Edit</a>
+                            <a class="btn btn-outline-danger my-2 my-sm-0 ml-3" href="/admin/delete-product/{{this._id}}" onclick="return confirm('Are you sure to delete the {{this.Name}}')">Delete</a>
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</section>
+<style>
+    .tb{
+        max-width: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+    
+</style>

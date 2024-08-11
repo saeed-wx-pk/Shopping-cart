@@ -1,0 +1,40 @@
+<section style="min-height: 100vh;">
+    <div class="container">
+        
+        <div class="tb">
+        <table class="table mt-3 mb-5 ">
+            <thead>
+                <tr>
+                     <th scope="col">Image</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Mobile</th>
+                    <th scope="col">Email</th>
+                    
+                   
+                </tr>
+            </thead>
+            <tbody>
+                {{#each users}}
+                    <tr>
+                        <td><img style="width: 50px; height: 50px;" src="/users-image/{{this._id}}.jpeg" alt="user image"></td>
+                        <td>{{this.Name}}</td>
+                        <td>{{this.Mobile}}</td>
+                        <td>{{this.Email}}</td>
+                        
+                        
+                        
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</section>
+<style>
+    .tb{
+        max-width: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+    
+</style>

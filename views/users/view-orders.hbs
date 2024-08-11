@@ -1,0 +1,64 @@
+<section style="min-height: 100vh;">
+    <div class="container">
+        <h1 class="text-center">Orders</h1>
+        <div class="tb">
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Pincode</th>
+                    <th scope="col">Mobile</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#if orderExist}}
+                {{#each orders}}
+                    <tr>
+                        
+                        <td>{{this.date}}</td>
+                        <td>{{this.deliveryDetails.address}}</td>
+                        <td>{{this.deliveryDetails.pincode}}</td>
+                        <td>{{this.deliveryDetails.mobile}}</td>
+                        <td>{{this.totalAmount}}</td>
+                        <td>{{this.paymentMethod}}</td>
+                        <td>{{this.status}}</td>
+                        
+                        <td>
+                            <a href="/view-order-products/{{this._id}}" class="btn btn-outline-primary ">view Products</a>
+                        </td>
+                        
+                        <td>
+                            <span id="cancel-btn">
+                                <button class="btn btn-outline-danger" onclick="orderCancel('{{this._id}}')">Cancel Order</button>
+                            </span>
+                        </td>
+                    </tr>
+                {{/each}}
+                {{else}}
+                    
+                        <td>
+                            <h4  class="text-center text-danger">Your Orders is Empty</h4>
+                            
+                        </td>
+                    
+                {{/if}}
+                
+                
+            </tbody>
+        </table>
+        </div>
+    </div>
+</section>
+<style>
+    .tb{
+        max-width: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        
+    }
+    
+</style>

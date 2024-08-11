@@ -1,0 +1,150 @@
+<section  class="pro-section ">
+    <div class="container">
+        <div class="row ">
+            <div class="col-md-6">
+                <div class="section-details mt-5 mb-5">
+                    <div><img class="profile-img" src="/users-image/{{user._id}}.jpeg" alt="profile photo"></div>
+                    
+                </div>
+    
+            </div>
+            <div class="col-md-6">
+                <div class="ml-2 mt-5 mb-5  profile-texts">
+                        <h1 class="">{{user.Name}}</h1>
+                        <p class="label">Email Address <b><span class="span">|</span></b></p>
+                        <h4 class=" ml-5">{{user.Email}}</h4>
+                        <p class="label ">Mobile Number <b><span class="span">|</span></b></p>
+                        <h4 class="ml-5">{{user.Mobile}}</h4>
+                    </div>
+                    <a href="/edit-profile" class="btn-outline-light my-2 my-sm-0 btn">Edit Profile</a>
+            </div>
+           
+        </div>
+    </div>
+</section>
+<section class="mt-5 mb-5">
+    <div class="container">
+        <h1 class="text-center">Your Orders</h1>
+        <div class="tb">
+        <table class="table mt-3 ">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Pincode</th>
+                    <th scope="col">Mobile</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#if orderExist}}
+                {{#each orders}}
+                    <tr>
+                        
+                        <td>{{this.date}}</td>
+                        <td>{{this.deliveryDetails.address}}</td>
+                        <td>{{this.deliveryDetails.pincode}}</td>
+                        <td>{{this.deliveryDetails.mobile}}</td>
+                        <td>{{this.totalAmount}}</td>
+                        <td>{{this.paymentMethod}}</td>
+                        <td>{{this.status}}</td>
+                        
+                    </tr>
+                {{/each}}
+                {{else}}
+                    
+                        <td class="empty">
+                            <h4  class="text-center text-danger"> Orders is Empty</h4>
+                            
+                        </td>
+                    
+                {{/if}}
+                
+                
+            </tbody>
+        </table>
+        </div>
+    </div>
+</section>
+<section class="mt-5 mb-5">
+  <div class="container">
+    <h1 class="text-center">Cart</h1>
+    <div class="tb">
+        <table class="table ">
+      <thead>
+        <tr>
+          <th>Items</th>
+          <th>Title</th>
+          <th>Prize</th>
+          <th>Quantity</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {{#if proExist}}
+        {{#each products}}
+        <tr>
+          
+          <td><img style="width: 4em; height: 4em;" src="/product-images/{{this.product._id}}.jpeg" alt="Image"></td>
+          <td>{{this.product.Name}}</td>
+          <td>Rs.{{this.product.Price}}</td>
+          <td>
+            
+            <span id="{{this.product._id}}">{{this.quantity}}</span>
+            
+          </td>
+          
+        </tr>
+        {{/each}}
+        {{else}}
+        <td class="empty">
+        <h4 class="text-center text-danger"> Cart is Empty</h4>
+        </td>
+        {{/if}}
+      </tbody>
+    </table>
+    </div>
+    <hr>
+    {{#if proExist}}
+    <div class="text-right " style="display: list-item;">
+      
+    <a href="/cart" style="width: 20%; " class="btn btn-success text-light mr-4">View my Cart</a>
+    </div>
+    {{/if}}
+  </div>
+</section>
+<style>
+    .profile-img{
+        width: 16em;
+        height: auto;
+        border: solid 10px ;
+        border-color: #fff;
+        border-radius: 130px;
+
+    }
+
+    .pro-section{
+        background-color: rgb(2, 52, 85);
+        
+    }
+    .span{
+        color: orange;
+    }
+    .label{
+        font-size: 20px;
+    }
+    .profile-texts{
+        color: #fff;
+    }
+    .tb{
+        max-width: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+    .empty{
+        display: flex;
+    }
+    
+</style>

@@ -1,0 +1,160 @@
+
+
+
+<section style="min-height: 100vh;">
+  
+
+  <div class="container mt-5">
+    
+    <div class="mt-4 text-right trnd-heading">
+      <h1 >Trending offers</h1>
+    </div>
+    <div id="imageCarousel" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators" id="carousel-indicators">
+        <!-- Indicators will be loaded here dynamically -->
+        
+      </ol>
+      <div class="carousel-inner" id="carousel-inner">
+        <!-- Images will be loaded here dynamically -->
+      </div>
+      <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+  
+  <div  class="container justify-content-center " id="product-template">
+    
+  
+    <div class="trnd-heading mt-4">
+      <h1>Trending products</h1>
+    </div>
+    <div class="row mt-4 pro-row "  id="productContainer">
+    
+    {{#each products}}
+    <div class="col-md-4 col-xl-2 col-lg-3 col-sm-6 align-items-center col-6 mb-5 card-total">
+        <div class="card flex-grow-0 pt-3 mt-3 mb-3 card-border" style="width: 11rem; height: 28rem; ">
+          <img style="width: 10rem; height: 15rem;" class="card-img-top " src="/product-images/{{this._id}}.jpeg" alt="Card image cap">
+            <div  class="card-body">
+              <h5  class="card-title">{{this.Name}}</h5>
+              <h6 class="card-text">Rs.{{this.Price}}</h6>
+              <h6 class="card-text">{{this.Category}}</h6>
+              {{#if ../user}}
+                <button onclick="addToCart('{{this._id}}')" class="btn-outline-success my-2 my-sm-0 btn ">Add to cart</button>
+              {{else}}
+                <a href="/login" class="btn-outline-success my-2 my-sm-0 btn ">Add to cart</a>
+              {{/if}}
+            </div>
+        </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
+</section>
+<style>
+  .card-border{
+   border: 0;
+    border-radius: 8px;
+    border: 2px solid rgb(107, 164, 107);
+       
+  
+  }.btn-category{
+    border: 0;
+    border-radius: 5px;
+    background-color: #fff;
+    text-decoration: none;
+    color: rgb(230, 11, 11);
+    font-size: large;
+    
+    margin-left: 1em;
+  }.btn-category:hover{
+    background-color: #e8e6e6;
+    color: black;
+    text-decoration: none;
+  }.btn-category:active{
+    border: 0;
+    background-color: #fff;
+    background-color: #cbc9c9;
+  }.category-all{
+    justify-content: space-around;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    
+  }.category-all::-webkit-scrollbar{
+    display: none;
+  }
+  .carousel-item img {
+  width: 400px; 
+  height: 300px; 
+  
+}
+.itemcarousel- {
+  background-size: 50% 300px; 
+   
+  background-position: center; 
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0)); 
+}.carousel-inner{
+  border-radius: 20px;
+}.carousel-indicators li{
+  color: red;
+}.trnd-heading h1{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+  font-weight: 600 ; 
+  letter-spacing: 2px;
+  font-size: 2em;
+  color: #2f2f2f;
+  
+}.card-total :hover{
+  transform: scale(1.005);
+}.carousel-item:hover{
+  transform: scale(1.010);
+}
+
+ 
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  fetch('/offer-images') // Your backend endpoint
+    .then(response => response.json())
+    .then(data => {
+      const carouselInner = document.getElementById('carousel-inner');
+      const carouselIndicators = document.getElementById('carousel-indicators');
+
+      data.forEach((item, index) => {
+        const activeClass = index === 0 ? 'active' : '';
+        console.log(item.url)
+        const carouselItem = document.createElement('div');
+        carouselItem.className = `carousel-item ${activeClass}`;
+        const img = document.createElement('img');
+        img.className = 'd-block w-100';
+        img.src = item.url;
+        img.alt = `Slide ${index + 1}`;
+        carouselItem.appendChild(img);
+        carouselInner.appendChild(carouselItem);
+
+        const indicatorItem = document.createElement('li');
+        indicatorItem.setAttribute('data-target', '#imageCarousel');
+        indicatorItem.setAttribute('data-slide-to', index);
+        if (activeClass) indicatorItem.className = activeClass;
+        carouselIndicators.appendChild(indicatorItem);
+      });
+
+      $('#imageCarousel').carousel({
+        interval: 3000  // Change image every 3 seconds
+      });
+    })
+    .catch(error => console.error('Error fetching images:', error));
+});
+</script>
+
+
+
+                    
+    
+

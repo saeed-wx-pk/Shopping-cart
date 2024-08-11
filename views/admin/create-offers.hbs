@@ -1,0 +1,31 @@
+<div class="container mt-3 " style="min-height: 100vh; padding-top: 40px;">
+    <h2 class="text-center">Create Offers</h2>
+    <div class="row">
+        <div class="col-md-6 d-flex justify-content-end">
+            <img src="/images/img-icon.svg"  alt="" class="offer-img" id="imgView"> 
+        </div>
+        <div class="col-md-6 mt-3">
+            <form action="/admin/create-offers" enctype="multipart/form-data" method="post">
+                <input type="text" name="title" class="form-control mb-2" placeholder="Title" required >
+                <label for="">Image</label>
+                <input type="file" name="offerImage" class="form-control" required  onchange=" viewImage(event) " >
+                <button type="submit" class="btn btn-success mt-3">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    .offer-img{
+        max-width: 400px; 
+        max-height: 300px; 
+        border-radius: 5px; 
+        margin-top: 20px; 
+        margin-bottom: 20px;
+        
+    }
+</style>
+<script>
+    function viewImage(event){
+        document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
+    }
+</script>

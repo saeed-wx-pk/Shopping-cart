@@ -1,0 +1,61 @@
+<section style="min-height: 100vh;">
+  <div class="container">
+    <h1 class="text-center">Cart</h1>
+    <div class="tb">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Items</th>
+          <th>Title</th>
+          <th>Prize</th>
+          <th>Quantity</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {{#if proExist}}
+        {{#each products}}
+        <tr>
+          
+          <td><img style="width: 4em; height: 4em;" src="/product-images/{{this.product._id}}.jpeg" alt="Image"></td>
+          <td>{{this.product.Name}}</td>
+          <td>Rs.{{this.product.Price}}</td>
+          <td class="quantity">
+            <button onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',-1)" class="btn btn-primary mr-3">-</button>
+            <span id="{{this.product._id}}">{{this.quantity}}</span>
+            <button onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',1)" class="btn btn-primary ml-3">+</button>
+          </td>
+          <td>
+            <button class="btn btn-danger" onclick="removeCartProduct('{{this._id}}','{{this.product._id}}')">Remove</button>
+          </td>
+        </tr>
+        {{/each}}
+        {{else}}
+        <td>
+        <h4 class="text-center text-danger">Your Cart is Empty</h4>
+        </td>
+        {{/if}}
+      </tbody>
+    </table>
+    </div>
+    <hr>
+    {{#if proExist}}
+    <div class="text-right">
+      <h3 class="mt-4 mr-4">Total Amount : Rs.<span id="total">{{totalAmount}}</span></h3>
+    <a href="/place-order" style="width: 20%; " class="btn btn-success text-light mr-5">Place Order</a>
+    </div>
+    {{/if}}
+  </div>
+</section>
+<style>
+    .tb{
+        max-width: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        
+    }
+    .quantity{
+      display: flex;
+    }
+    
+</style>
