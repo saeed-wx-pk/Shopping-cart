@@ -38,7 +38,7 @@ module.exports={
         
     },
     deleteProduct:(productId,cb)=>{
-        let id=new objectId(productId)
+        let id=new ObjectId(productId)
         let qurey={_id:id}
         
         db.get().collection(collection.PRODUCT_COLLECTION).deleteOne(qurey).then((res)=>{
@@ -47,7 +47,7 @@ module.exports={
     },
     getProductDetails:(productId)=>{
         return new Promise((resolve,reject)=>{
-            let id=new objectId(productId)
+            let id=new ObjectId(productId)
             let qurey={_id:id}
             db.get().collection(collection.PRODUCT_COLLECTION).findOne(qurey).then((product)=>{
                 resolve(product)
@@ -56,10 +56,10 @@ module.exports={
     },
     updateProduct:(productDetails,productId)=>{
         return new Promise(async(resolve,reject)=>{
-            let product=await db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:new objectId(productId)})
+            let product=await db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:new ObjectId(productId)})
             
             db.get().collection(collection.PRODUCT_COLLECTION)
-            .updateOne({_id:new objectId(productId)},{
+            .updateOne({_id:new ObjectId(productId)},{
                 $set:{
                     Name:productDetails.Name,
                     Price:productDetails.Price,
@@ -80,7 +80,7 @@ module.exports={
                 //     )
                 //     db.get().collection(collection.PRODUCTS_CATEGORY_COLLECTION).updateOne({Name:product.Category},
                 //         {
-                //             $pull:{products:{objectId:new objectId(productId)} }
+                //             $pull:{products:{ObjectId:new ObjectId(productId)} }
                 //         }
                 //     )
                 // }
@@ -93,7 +93,7 @@ module.exports={
         return new Promise(async(resolve,reject)=>{
             let cartItems= await db.get().collection(collection.CART_COLLECTION).aggregate([
                 {
-                    $match:{user:new objectId(userId)}
+                    $match:{user:new ObjectId(userId)}
                 },
                 {
                     $unwind:'$products'
@@ -130,7 +130,7 @@ module.exports={
         return new Promise(async(resolve,reject)=>{
             let total= await db.get().collection(collection.CART_COLLECTION).aggregate([
                 {
-                    $match:{user:new objectId(userId)}
+                    $match:{user:new ObjectId(userId)}
                 },
                 {
                     $unwind:'$products'

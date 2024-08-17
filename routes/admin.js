@@ -21,7 +21,8 @@ const verfyLogin=(req,res,next)=>{
 router.get("/", function (req, res, next) { 
   
   productHelpers.getAllProducts().then((products)=>{ 
-    res.render("./admin/admin", { products, admin: true });
+    let adminDetails = req.session.admin;
+    res.render("./admin/admin", { products, adminDetails,admin: true });
   })
 });
 
@@ -30,7 +31,8 @@ router.get('/login',(req,res)=>{
     res.redirect('/admin') 
   }else{
     
-    res.render('admin/login',{loginErr:req.session.adminloginErr, admin:true})
+    let adminDetails = req.session.admin;
+    res.render('admin/login',{loginErr:req.session.adminloginErr, adminDetails,admin:true})
     req.session.adminloginErr=null
   }
 })
@@ -64,7 +66,8 @@ router.get("/add-product",verfyLogin, (req, res) => {
     'Shoes',
     'Computer'
   ]
-  res.render("admin/add-product",{admin:true,category});
+  let adminDetails = req.session.admin;
+  res.render("admin/add-product",{adminDetails,admin:true,category});
 });
 
 
@@ -111,7 +114,8 @@ router.get('/edit-product/:id',verfyLogin,async(req,res)=>{
     'Shoes',
     'Computer'
   ]
-  res.render('admin/edit-product',{product,admin:true,category}) 
+  let adminDetails = req.session.admin;
+  res.render('admin/edit-product',{product,adminDetails,admin:true,category}) 
 })
 
 router.post('/edit-product/:id',verfyLogin,(req,res)=>{
@@ -132,7 +136,8 @@ router.get('/view-orders',verfyLogin,async(req,res)=>{
   if(orders[0]){
     ordersExist=true
   }
-  res.render('admin/view-all-orders',{orders,ordersExist,admin:true})
+  let adminDetails = req.session.admin;
+  res.render('admin/view-all-orders',{orders,ordersExist,adminDetails,admin:true})
 })
 
 router.get('/view-users',verfyLogin,async(req,res)=>{
@@ -141,7 +146,8 @@ router.get('/view-users',verfyLogin,async(req,res)=>{
   if(users[0]){
     usersExist=true
   }
-  res.render('admin/view-all-users',{users,usersExist,admin:true}) 
+  let adminDetails = req.session.admin;
+  res.render('admin/view-all-users',{users,usersExist,adminDetails,admin:true}) 
 })
 
 
@@ -155,11 +161,13 @@ router.post('/tracking',(req,res)=>{
 router.get('/view-order-products/:id',verfyLogin,async(req,res)=>{
   let orderId=req.params.id
   let products= await productHelpers.getAllOrderProducts(orderId) 
-  res.render('admin/view-order-products',{products,admin:true})
+  let adminDetails = req.session.admin;
+  res.render('admin/view-order-products',{products,adminDetails,admin:true})
 })
 router.get('/create-offers',verfyLogin,(req,res)=>{
   
-  res.render('admin/create-offers',{admin:true })
+  let adminDetails = req.session.admin;
+  res.render('admin/create-offers',{adminDetails,admin:true })
 })
 router.post('/create-offers',(req,res)=>{
   
@@ -180,6 +188,11 @@ router.post('/create-offers',(req,res)=>{
     
   })
   
+})
+router.get('/logout',(req,res)=>{
+  req.session.admin=null
+  req.session.adminLoggedIn=false
+  res.redirect('/admin')
 })
 module.exports = router;
 

@@ -40,7 +40,7 @@ router.get('/login',(req,res)=>{
   }else{
     
     res.render('users/login',{loginErr:req.session.userloginErr})
-    req.session.loginErr=null
+    req.session.userloginErr=null
   }
   
 })
