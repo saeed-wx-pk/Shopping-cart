@@ -1,7 +1,7 @@
 /node_modules
 /.vscode
 /public/images
-/public/offer-images
+/public/offers-images
 /public/product-images
 /public/users-image
 /package-lock.json
